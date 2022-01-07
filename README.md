@@ -14,3 +14,57 @@ Functions are the most important concept in programming, writing it well from th
 It’s advisable to make your functions from 5 lines of code to 20 lines of code maximum,
 This will help you in a lot of ways , first it assure that each function does only one task, and it will prevent you from duplicating your code
 For example :
+```
+  const validPhone = (value) => {
+    setPhoneValidLoading(true);
+    // FIXING ISSUE
+    const phoneTemp = /[^0-9]/;
+    let temp = [...phoneValidation];
+    setShowPhoneValidation(true);
+    // console.log('phone', !phoneTemp.test(value));
+    if (value.length == 11 && !phoneTemp.test(value)) {
+      temp[0].valid = true;
+      request(_baseUrls.amanSuper)
+        .post(`/amanauth/phone_validation`, { phone_number: value })
+        .then((res) => {
+          // console.log(res);
+          if (res.data.message === "phone_exists") {
+            // console.log('phone_exist', res.data.message);
+            temp[1].valid = false;
+            temp[1].title = strings.all.validate_phone_exist;
+            setPhoneValidation(temp);
+            setAllPhoneValidation(false);
+            setPhoneValidLoading(false);
+          } else {
+            // console.log('phone_not_exist', res.data.message);
+            setPhoneValidLoading(false);
+
+            temp[1].valid = true;
+            temp[1].title = strings.all.validate_phone_not_exist;
+            setPhoneValidation(temp);
+            setShowPhoneValidation(false);
+            setAllPhoneValidation(true);
+          }
+        })
+        .catch((err) => {
+          /*console.log('checkphone', err.response)*/
+        });
+    } else {
+      temp[0].valid = false;
+      temp[1].valid = "notShown";
+      setPhoneValidation(temp);
+      setAllPhoneValidation(false);
+    }
+  };
+
+  const changePhoneHandler = (value) => {
+    setPhoneNum(value);
+    if (value.length > 0) {
+      validPhone(value);
+    } else {
+      setAllPhoneValidation(false);
+      setShowPhoneValidation(false);
+    }
+  };
+
+```
