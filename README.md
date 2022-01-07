@@ -14,7 +14,7 @@ Functions are the most important concept in programming, writing it well from th
 It’s advisable to make your functions from 5 lines of code to 20 lines of code maximum,
 This will help you in a lot of ways , first it assure that each function does only one task, and it will prevent you from duplicating your code
 For example :
-```
+``` javascript
   const validPhone = (value) => {
     setPhoneValidLoading(true);
     // FIXING ISSUE
