@@ -58,8 +58,121 @@ For exapmle
 const makeCircle = (x, y, radius)=>{}; // bad 
 const makeCircle = (center, radius)=>{}; // good
 ```
+### Have No Side Effects
+
+> Side effects are lies. Your function promises to do one thing, but it also does other hidden things.
+
+Functions can't do a hidden side effects, that will make it very hard in debugging for an issue, it will help you achieve the rule that we already established , "You know you are working on clean code when each routine you read turns out to be pretty much what you expected"
+``` javascript
+function checkPassword(userName,password) {
+   const user = UserGateway.findByName(userName);
+   if (user !== null) {
+     const codedPhrase = user.getPhraseEncodedByPassword();
+     const phrase = cryptographer.decrypt(codedPhrase, password);
+     if ("Valid Password".equals(phrase)) {
+       Session.initialize();
+       return true;
+     }
+   }
+   return false;
+ }
+```
+the previous function said that it will only check the password, so it will supposed to return only true or false, but instead it ``` Session.initialize() ``` when the password  is valid.
+This side effect creates a temporal coupling. That is, checkPassword can only be called at certain times (in other words, when it is safe to initialize the session).
+In order to fix the previous function, we can rename it to be ```checkPasswordAndInitializeSession``` 
 
 ### Command Query Seperation
+ 
+> Functions should either do something or answer something, but not both. 
+
+The previous has another problem even after the renaming, it answers a question, which is whether the password is  valid or not, and it  does a thing which is initialization of the seesion
+We can improve it by seperate between the checking, & the initialization
+``` javascript
+function intializeSession(){
+  if (checkPassword(userName,password))
+    Session.initialize();   
+}
+function checkPassword(userName,password) {
+   const user = UserGateway.findByName(userName);
+   if (user !== null) {
+     const codedPhrase = user.getPhraseEncodedByPassword();
+     const phrase = cryptographer.decrypt(codedPhrase, password);
+     if ("Valid Password".equals(phrase)) {
+       return true;
+     }
+   }
+   return false;
+ }
+```
+### Prefer Exceptions to Returning Error Codes
+
+Functions should do one thing. Error handing is one thing. Thus, a function that handles errors should do nothing else.
+
+For example :
+``` javascript
+// bad code -->
+  const Delete = () => {
+    if (deletePage(page) === E_OK) {
+      if (registry.deleteReference(page.name) === E_OK) {
+        if (configKeys.deleteKey(page.name.makeKey()) === E_OK) {
+          console.error("page deleted");
+        } else {
+          console.error("configKey not deleted");
+        }
+      } else {
+        console.error("deleteReference from registry failed");
+      }
+    } else {
+      console.error("delete failed");
+      return E_ERROR;
+    }
+  };
+  
+// a better code would be -->
+const deletePageAndAllReferences = (page) => {
+  deletePage(page);
+  registry.deleteReference(page.name);
+  configKeys.deleteKey(page.name.makeKey());
+}
+const delete = (page) => {
+  try {
+    deletePageAndAllReferences(page);
+  }
+  catch (Exception e) {
+    console.error(e);
+  }
+}
+```
+Try/catch blocks are ugly in their own right. They confuse the structure of the code and mix error processing with normal processing. So we extracted the bodies of the try and catch blocks out into functions of their own.
 
 ### Don't repeat yourself
+
+Duplication may be the root of all evil in software. Many principles and practices have been created for the purpose of controlling or eliminating it
+And as a web developers, using the modern frameworks we have a state management systems we can use to eliminate any duplication in our application, 
+so if we have a function for fetching data about a user cart - for an Ecommerce App - in the cart screen, and we need also to get that data in the checkout screen, or in the store screen, then we have to put that function as a method  in our store.
+
+Invention of the subroutine in software development have been an ongoing attempt to eliminate duplication from our source code. So don't let it go to waste!!
+
+### Final Advise 
+ 
+** Writing software is like any other kind of writing. When you write a paper or an article, you get your thoughts down first, then you massage it until it reads well. The first draft might be clumsy and disorganized, so you wordsmith it and restructure it and refine it until it reads the way you want it to read.**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
