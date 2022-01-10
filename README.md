@@ -40,6 +40,12 @@ Using descriptive names is an essential for establishment the previous rule, don
 And  always remember, long descriptive name , is better than short enigmatic name, and also  long descriptive name is better than long descriptive comment   
 
 Take your time choosing the names, and also you should try different names , then try to read the whole file, and see what you understand, then modify the names, and so on.Always remember that writing a clean code , is an iterative process    
+For exapmle 
+
+``` javascript
+const flag = () =>!firstname || !lastname || !telephone ; // bad
+const AreAllFieldsAreEntered = () =>!firstname || !lastname || !telephone ; // good
+```
   
 ### Function Argument
 
@@ -47,7 +53,7 @@ Functions can be niladic, monadic, dyadic, triadic, or polyadic,the main rule wh
 Arguments are hard. They take a lot of conceptual power, the reader of the code won't be able to interpret the meaning of the arguments, or why they are important to the code.
 Arguments are even harder from a testing point of view. Imagine the difficulty of writing all the test cases to ensure that all the various combinations of arguments work properly.
 When a function seems to need more than two or three arguments, it is likely that some of those arguments ought to be wrapped into a class of their own.
-For exapmple 
+For exapmle 
 ``` javascript
 const makeCircle = (x, y, radius)=>{}; // bad 
 const makeCircle = (center, radius)=>{}; // good
