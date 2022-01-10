@@ -19,22 +19,31 @@ For example the following 2 code segments are doing the same functionality "Vali
 
 ``` javascript
 
-
-
-
 ```
 ### Do One Thing
 
 > Functions should do on thing, they should do it well, they should do it only
 
-the main usage of the function is to decompose a large concept into smaller concepts, so it will make no sence to put all your logic in a single function !
-one way to know  if your function is doing more than one thing, if you can extract anthor  function from it with a name that is not merely restatment of the main function name  
+The main usage of the function is to decompose a large concept into smaller concepts, so it will make no sense to put all your logic in a single function !
+one way to know  if your function is doing more than one thing, if you can extract another function from it with a name that is not merely restatement of the main function name  
 
 ### One level of abstraction 
 
+In order to keep our functions doing only one thing, we try to maintain all the function calls within our functions to be at the same abstraction level, so you can’t have a high order function , of order four for instance, and another one of order one.
+Having a lot of levels of abstractions at the function, it will not only prevent the function of doing only one thing , but also it will confuse the reader, he won’t be able to know to the essential concepts, from the details   
+
 ### Descriptive names
 
+> You know you are working on clean code when each routine you read turns out to be pretty much what you expected
+
+Using descriptive names is an essential for establishment the previous rule, don’t be afraid to choose a large name as long as it describes what the function does. 
+And  always remember, long descriptive name , is better than short enigmatic name, and also  long descriptive name is better than long descriptive comment   
+
+Take your time choosing the names, and also you should try different names , then try to read the whole file, and see what you understand, then modify the names, and so on.Always remember that writing a clean code , is an iterative process    
+  
 ### Function Argument
+
+
 
 ### Command Query Seperation
 
