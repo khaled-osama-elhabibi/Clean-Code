@@ -43,7 +43,15 @@ Take your time choosing the names, and also you should try different names , the
   
 ### Function Argument
 
-
+Functions can be niladic, monadic, dyadic, triadic, or polyadic,the main rule when it comes to choosing the number of arguments is that  the less the arguments the function takes the better the function is.
+Arguments are hard. They take a lot of conceptual power, the reader of the code won't be able to interpret the meaning of the arguments, or why they are important to the code.
+Arguments are even harder from a testing point of view. Imagine the difficulty of writing all the test cases to ensure that all the various combinations of arguments work properly.
+When a function seems to need more than two or three arguments, it is likely that some of those arguments ought to be wrapped into a class of their own.
+For exapmple 
+``` javascript
+const makeCircle = (x, y, radius)=>{}; // bad 
+const makeCircle = (center, radius)=>{}; // good
+```
 
 ### Command Query Seperation
 
