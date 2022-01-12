@@ -19,6 +19,7 @@ For example the following 2 code segments are doing the same functionality "Vali
 
 ``` javascript
 
+
 ```
 ### Do One Thing
 
