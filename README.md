@@ -139,7 +139,7 @@ const delete = (page) => {
   try {
     deletePageAndAllReferences(page);
   }
-  catch (Exception e) {
+  catch (error) {
     console.error(e);
   }
 }
